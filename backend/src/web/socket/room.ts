@@ -14,7 +14,7 @@ export class Room {
     private static EVENT_HOST_ROLE_GRANTED = 'host-role-granted';
     private static EVENT_GAME_START_ERROR = 'game-start-error';
 
-    private static EVENT_MAKE_MOVE = 'make-move';
+    private static EVENT_DRAW = 'draw';
     private static EVENT_LEAVE_ROOM = 'leave-room';
     private static EVENT_RESTART = 'restart';
     private static EVENT_GUESS = 'guess';
@@ -43,6 +43,8 @@ export class Room {
         this.serverSocket.addHandler(roomName, Room.EVENT_PLAYER_JOINED, this.handlePlayerJoin.bind(this));
         this.serverSocket.addHandler(roomName, Room.EVENT_START_GAME, this.handleGameStart.bind(this));
         this.serverSocket.addHandler(roomName, Room.EVENT_RESTART, this.handleRestart.bind(this));
+        this.serverSocket.addHandler(roomName, Room.EVENT_DRAW, this.handleDraw.bind(this));
+
     }
 
     private handleGameStart(receivedMessage: SocketMessage, broadcast: any, sendToUser: any): void {
@@ -51,8 +53,8 @@ export class Room {
             return;
         }   
                
-        const teams = this.players;
-        this.GameService = new GameService(teams);
+        const players = this.players;
+        this.GameService = new GameService(players);
 
         const data = {gamePlayers: this.GameService.getGamePlayers()};
         receivedMessage.data = data;
@@ -86,6 +88,10 @@ export class Room {
         const allPlayerData = this.players.map(player => ({id: player.userData.id, name: player.userData.nickname}));
 
     } 
+
+    private handleDraw(receivedMessage: SocketMessage, broadcast: any): void {
+        broadcast(receivedMessage);
+    }
 
     private handleRestart(receivedMessage: SocketMessage, broadcast: any): void {
 

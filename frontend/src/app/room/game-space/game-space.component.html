@@ -1,0 +1,7 @@
+<div *ngIf=!loggedInUser.myTurn>>
+
+    {{canvas}}
+</div>
+<div *ngIf=loggedInUser.myTurn>
+    <app-canvas></app-canvas>
+</div>

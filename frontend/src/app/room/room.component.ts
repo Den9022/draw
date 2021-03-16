@@ -105,7 +105,8 @@ export class RoomComponent implements OnDestroy {
 
   private handleGameStart(socketMessage: SocketMessage): void {
     console.log('--- game start message ---\n', socketMessage.data);
-    this.gamePlayers = this.joinedPlayers;
+    this.gamePlayers = socketMessage.data.gamePlayers;
+    console.log(this.gamePlayers);
     this.gameStarted = true;
   }
 

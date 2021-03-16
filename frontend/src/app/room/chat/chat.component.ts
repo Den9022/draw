@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { isNullOrUndefined } from 'util';
-import { RestService } from '../service/rest-service';
-import { SocketService } from '../service/socket-service';
-import { SocketMessage } from '../vo/socket-message';
+import { RestService } from '../../service/rest-service';
+import { SocketService } from '../../service/socket-service';
+import { SocketMessage } from '../../vo/socket-message';
 
 @Component({
   selector: 'app-chat',

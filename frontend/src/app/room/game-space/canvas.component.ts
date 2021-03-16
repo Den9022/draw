@@ -3,7 +3,8 @@ import {
   } from '@angular/core';
   import { fromEvent } from 'rxjs';
   import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
-  
+  import { GameSpaceComponent } from './game-space.component';
+
   @Component({
     selector: 'app-canvas',
     template: '<canvas #canvas></canvas>',
@@ -12,7 +13,8 @@ import {
   export class CanvasComponent implements AfterViewInit {
   
     @ViewChild('canvas') public canvas: ElementRef;
-  
+    @ViewChild(GameSpaceComponent) GameSpace:GameSpaceComponent;
+
     @Input() public width = 400;
     @Input() public height = 400;
   
@@ -31,7 +33,7 @@ import {
   
       this.captureEvents(canvasEl);
     }
-    
+
     private captureEvents(canvasEl: HTMLCanvasElement) {
       // this will capture all mousedown events from the canvas element
       fromEvent(canvasEl, 'mousedown')
@@ -80,6 +82,7 @@ import {
         this.cx.lineTo(currentPos.x, currentPos.y);
         this.cx.stroke();
       }
+      this.GameSpace.draw();
     }
   
   }

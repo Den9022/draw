@@ -6,6 +6,10 @@ export class GameService {
 
     constructor(players: PlayerVo[]) {
         this.players = players;
+        let player = players.pop();
+        player.myTurn = true;
+        this.players.push(player);
+
     }
 
     public getGamePlayers(): PlayerVo[] {
